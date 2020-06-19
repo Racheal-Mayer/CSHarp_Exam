@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+    input{
+        font-family: 'Merriweather', serif;
+        font-size: 20px;
+    }
+    .form-control{
+        background:none;
+        border: none;
+        border-left: 2px solid black;
+        border-top: 2px solid black;
+    }
+    h1, label{
+        font-family: 'Playfair Display', serif;
+    }
+
+    .card-header
+    {
+        border-radius: 20px;
+    }
+</style>
+
+<h1>Welcome to the Dojo Activity Center!</h1>
+    <div class="col-lg-8 mb-4">
+        <partial name="RegisterPartial" />
+    </div>
+
+<div class="col-lg-4 mb-4">
+<partial name="LoginPartial" />
+</div>
+

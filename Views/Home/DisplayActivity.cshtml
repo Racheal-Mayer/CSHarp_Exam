@@ -1,0 +1,60 @@
+@model MeetUp
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+
+*{
+    font-family: 'Merriweather', serif;
+}
+p{
+    font-size:20px;
+    font-family: 'Playfair Display', serif;
+}
+.cardheader{
+    background: rgb(242,222,222);
+    font-size: 20px;
+}
+
+</style>
+<h1>Dojo Activity Center</h1>
+<a class="btn btn-info btn-sm" href="/home">Home</a>
+<a class="btn btn-info btn-sm" href="/logout"> Logout </a>
+<a class="btn btn-info btn-sm" href="/activity/new">Add a New Activity</a>
+
+<div class="row">
+    <div class="col-sm-8 offset-sm-2">
+        <div class="card">
+            <h1 class="card-header bg-danger text-white">@Model.Title</h1>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p> Event Coordinator: @Model.Coordinator.FirstName </p>
+                        <p> Description: @Model.Description </p>
+                        </div>
+                            <div class="col-sm-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-danger text-white cardheader"> Participants: </li>
+                                    @foreach( var w in Model.Participants)
+                                    {
+                                    <li class="list-group-item"> @w.Tagalong.FirstName</li>
+                                    }
+                                @if(ViewBag.User.UserId == Model.Coordinator.UserId)
+                {
+                    <a class="btn btn-warning btn-sm" href="/activity/@Model.MeetUpId/delete"> Cancel </a>
+                }
+                else
+                {
+                    if(Model.Participants.Any(m => m.UserId == ViewBag.User.UserId))
+                    //query to see if they are watching
+                    {                                           //has to be exactly what you called it in route.
+                        <a class="btn btn-success btn-sm" asp-action="ToggleActivity" asp-route-meetupId="@Model.MeetUpId" asp-route-status="leave" > Back Out</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success btn-sm" asp-action="ToggleActivity" asp-route-meetupId="@Model.MeetUpId" asp-route-status="join" > Join In! </a>
+                    }
+                }
+        
+            </div>
+        </div>
+    </div> 
+</div>

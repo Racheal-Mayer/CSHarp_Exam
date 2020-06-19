@@ -1,0 +1,38 @@
+@model MeetUp
+
+<div class="card">
+    <div class="card-header bg-danger text-white">Create a Activity</div>
+    <div class="card-body">
+        <form action="/activity/create" method="post">
+        <div class="form-group">
+                    <label>Title:</label>
+                    <input asp-for="Title" class="form-control">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Date:</label>
+                    <input asp-for="Date" class="form-control">
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Duration:</label>
+                    <input asp-for="DurationTime" class="form-control">
+                    <span asp-validation-for="DurationTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <select id="Duration" name="Duration">
+                        <option value="Hours">Hours</option> 
+                        <option value="Minutes">Minutes</option> 
+                        <option value="Days">Days</option> 
+                        </select>
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea asp-for="Description" class="form-control"> </textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Create Activity" class="btn btn-danger">
+            </form>
+        </div>
+    </div>

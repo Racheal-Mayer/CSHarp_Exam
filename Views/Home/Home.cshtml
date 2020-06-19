@@ -1,0 +1,62 @@
+@model List<MeetUp>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+
+thead{
+    font-size:20px;
+    font-family: 'Playfair Display', serif;
+    }
+*{
+    font-family: 'Merriweather', serif;
+}
+
+
+</style>
+<h1>Dojo Activity Center</h1>
+<h3>Welcome, @ViewBag.User.FirstName!</h3>
+<a class="btn btn-info btn-sm" href="/logout"> Logout </a>
+<br><br>
+<table class="table border border-danger">
+    <thead class="bg-danger text-white">
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>Number of Participants</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(MeetUp m in Model)
+        {
+            <tr>
+                <td> <a href="/activity/@m.MeetUpId"> @m.Title </a> </td>
+                <td>@m.Date</td>
+                <td>@m.DurationTime  @m.Duration</td>
+                <td>@m.Coordinator.FirstName</td>
+                <td>@m.Participants.Count</td>
+            <td>
+                @if(ViewBag.User.UserId == m.Coordinator.UserId)
+                {
+                    <a class="btn btn-danger btn-sm" href="/activity/@m.MeetUpId/delete"> Cancel </a>
+                }
+                else
+                {
+                    if(m.Participants.Any(w => w.UserId == ViewBag.User.UserId))
+                    //query to see if they are watching
+                    {                                           //has to be exactly what you called it in route.
+                        <a class="btn btn-outline-info btn-sm" asp-action="ToggleActivity" asp-route-meetupId="@m.MeetUpId" asp-route-status="leave" > Back Out</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-info btn-sm" asp-action="ToggleActivity" asp-route-meetupId="@m.MeetUpId" asp-route-status="join" > Join In! </a>
+                    }
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a href="activity/new" class="btn btn-info">Add a New Activity</a>
+</div>
